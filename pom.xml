@@ -9,6 +9,7 @@
         <module>module-service</module>
         <module>module-api</module>
         <module>module-controller</module>
+        <module>module-bean</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -27,4 +28,15 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>4.3.13.RELEASE</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
 </project>
