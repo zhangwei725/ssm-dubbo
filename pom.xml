@@ -1,25 +1,77 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
     <groupId>com.werner</groupId>
     <artifactId>ssm-dubbo</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>module-service</module>
-        <module>module-api</module>
-        <module>module-controller</module>
-        <module>module-bean</module>
-    </modules>
+    <!--<modules>-->
+    <!--<module>module-service</module>-->
+    <!--<module>module-api</module>-->
+    <!--<module>module-controller</module>-->
+    <!--<module>module-bean</module>-->
+    <!--</modules>-->
+    <!--pom 子maven项目继承依赖-->
     <packaging>pom</packaging>
-
     <name>ssm-dubbo</name>
     <url>http://maven.apache.org</url>
-
+    <!--这里定义统一的版本号,避免项目中版本冲突-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+        <!--spring-->
+        <dev.spring.version>4.3.13.RELEASE</dev.spring.version>
 
+        <!--mybatis-->
+        <dev.ver.mybatis>3.4.5</dev.ver.mybatis>
+        <dev.ver.mybatis-spring>1.3.1</dev.ver.mybatis-spring>
+        <dev.ver.pagehelper>5.1.2</dev.ver.pagehelper>
+
+        <dev.ver.jedis>2.9.0</dev.ver.jedis>
+        <dev.ver.spring-data-redis>1.8.9.RELEASE</dev.ver.spring-data-redis>
+
+        <!--log日志-->
+        <dev.ver.slf4j>1.7.25</dev.ver.slf4j>
+        <dev.ver.logback>1.2.3</dev.ver.logback>
+        <dev.ver.log4j>1.2.17</dev.ver.log4j>
+        <dev.ver.slf4j-log4j12>1.7.25</dev.ver.slf4j-log4j12>
+        <dev.ver.logback-ext-spring>0.1.4</dev.ver.logback-ext-spring>
+        <!--分布式-->
+        <dev.ver.dubbo>2.5.8</dev.ver.dubbo>
+        <dev.ver.zookeeper>3.4.11</dev.ver.zookeeper>
+        <dev.ver.zkclient>0.10</dev.ver.zkclient>
+        <dev.ver.netty>4.1.18.Final</dev.ver.netty>
+
+        <!--apache工具类-->
+        <dev.ver.commons-lang3>3.1</dev.ver.commons-lang3>
+        <dev.ver.commons-beanutils>1.9.3</dev.ver.commons-beanutils>
+
+        <dev.ver.freemarker>2.3.22</dev.ver.freemarker>
+
+        <dev.ver.junit>4.12</dev.ver.junit>
+
+        <!--权限验证框架-->
+        <dev.ver.shiro>1.4.0</dev.ver.shiro>
+
+        <!--pojo框架-->
+        <dev.ver.lombok>1.16.18</dev.ver.lombok>
+        <!--连接池-->
+        <dev.ver.druid>1.1.6</dev.ver.druid>
+        <dev.ver.mysql>5.1.42</dev.ver.mysql>
+        <!--json数据-->
+        <jackson.version>2.9.3</jackson.version>
+
+        <plg.ver.maven-resources-plugin>2.7</plg.ver.maven-resources-plugin>
+        <plg.ver.maven-compiler-plugin>3.7.0</plg.ver.maven-compiler-plugin>
+        <plg.ver.maven-source-plugin>3.0.1</plg.ver.maven-source-plugin>
+        <plg.ver.lombok-maven-plugin>1.16.18</plg.ver.lombok-maven-plugin>
+        <jdk.ver>1.8</jdk.ver>
+        <center.project.name>${project.artifactId}</center.project.name>
+        <profiles.dir>src/profiles</profiles.dir>
+
+    </properties>
+    <!--这里定义的都会被继承-->
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -27,16 +79,307 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
 
+    <!--这里定义的需要在子项目中引用才能生效-->
     <dependencyManagement>
         <dependencies>
+
+            <!--spring-->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
-                <version>4.3.13.RELEASE</version>
+                <version>${dev.spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${dev.spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${dev.spring.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${dev.spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${dev.spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${dev.spring.version}</version>
+            </dependency>
+
+            <!--pojo库-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${dev.ver.lombok}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!--druid 数据库连接池-->
+            <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${dev.ver.druid}</version>
+            </dependency>
+            <!--mysql驱动-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${dev.ver.mysql}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${dev.ver.pagehelper}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${dev.ver.mybatis}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${dev.ver.mybatis-spring}</version>
+            </dependency>
+
+            <!--redis数据库-->
+            <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${dev.ver.jedis}</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>${dev.ver.spring-data-redis}</version>
+            </dependency>
+
+            <!--shiro 权限验证-->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>${dev.ver.shiro}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${dev.ver.shiro}</version>
+            </dependency>
+
+            <!--json-->
+            <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!--异步通信框架-->
+            <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${dev.ver.netty}</version>
+            </dependency>
+            <!-- dubbo -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dev.ver.dubbo}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>spring-context</artifactId>
+                        <groupId>org.springframework</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>spring-web</artifactId>
+                        <groupId>org.springframework</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>spring-beans</artifactId>
+                        <groupId>org.springframework</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>org.jboss.netty</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!-- dubbo -->
+            <!-- zookeeper -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${dev.ver.zookeeper}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>netty</artifactId>
+                        <groupId>io.netty</groupId>
+                    </exclusion>
+
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.101tec</groupId>
+                <artifactId>zkclient</artifactId>
+                <version>${dev.ver.zkclient}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!--log日志-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${dev.ver.slf4j}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.slf4j/log4j-over-slf4j -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${dev.ver.slf4j}</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${dev.ver.slf4j-log4j12}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${dev.ver.slf4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${dev.ver.logback}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.logback-extensions</groupId>
+                <artifactId>logback-ext-spring</artifactId>
+                <version>${dev.ver.logback-ext-spring}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/local</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <profile>
+            <id>dev</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${profiles.dir}/dev</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <finalName>${center.project.name}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${plg.ver.maven-resources-plugin}</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${plg.ver.maven-compiler-plugin}</version>
+                <configuration>
+                    <source>${jdk.ver}</source>
+                    <target>${jdk.ver}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${plg.ver.maven-source-plugin}</version>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
 </project>

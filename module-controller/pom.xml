@@ -10,9 +10,7 @@
     <packaging>war</packaging>
     <name>module-controller Maven Webapp</name>
     <url>http://maven.apache.org</url>
-    <dependencies>
 
-    </dependencies>
     <build>
         <finalName>module-controller</finalName>
     </build>

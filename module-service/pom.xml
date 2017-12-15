@@ -10,9 +10,9 @@
     <packaging>war</packaging>
     <name>module-service Maven Webapp</name>
     <url>http://maven.apache.org</url>
-    <dependencies>
+    <devendencies>
 
-    </dependencies>
+    </devendencies>
     <build>
         <finalName>module-service</finalName>
     </build>
