@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.werner.shop.mapper.MessageMapper">
+
+    <select id="listMsg" resultType="com.werner.shop.entity.Message">
+        SELECT *
+        FROM tb_msg
+    </select>
+
+
+    <insert id="save" parameterType="com.werner.shop.entity.Message">
+        INSERT INTO tb_msg (title, category_id, source, update_time, read_count, state)
+        VALUES (#{title},#{categoryId}, #{source}, #{updateTime},#{readCount}, #{state});
+    </insert>
+
+    <insert id="saveAll" parameterType="com.werner.shop.entity.Message">
+
+    </insert>
+</mapper>

@@ -5,6 +5,7 @@
         <groupId>com.werner</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>module-api</artifactId>
@@ -12,9 +13,14 @@
 
     <name>module-api</name>
     <url>http://maven.apache.org</url>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.werner</groupId>
+            <artifactId>module-bean</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
 </project>

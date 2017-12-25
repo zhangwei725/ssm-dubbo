@@ -7,12 +7,12 @@
     <groupId>com.werner</groupId>
     <artifactId>ssm-dubbo</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <!--<modules>-->
-    <!--<module>module-service</module>-->
-    <!--<module>module-api</module>-->
-    <!--<module>module-controller</module>-->
-    <!--<module>module-bean</module>-->
-    <!--</modules>-->
+    <modules>
+        <module>module-service</module>
+        <module>module-api</module>
+        <module>module-controller</module>
+        <module>module-bean</module>
+    </modules>
     <!--pom 子maven项目继承依赖-->
     <packaging>pom</packaging>
     <name>ssm-dubbo</name>
@@ -40,7 +40,7 @@
         <!--分布式-->
         <dev.ver.dubbo>2.5.8</dev.ver.dubbo>
         <dev.ver.zookeeper>3.4.11</dev.ver.zookeeper>
-        <dev.ver.zkclient>0.10</dev.ver.zkclient>
+        <dev.ver.zkclient>0.1</dev.ver.zkclient>
         <dev.ver.netty>4.1.18.Final</dev.ver.netty>
 
         <!--apache工具类-->
@@ -53,6 +53,7 @@
 
         <!--权限验证框架-->
         <dev.ver.shiro>1.4.0</dev.ver.shiro>
+        <dev.ver.fileupload>1.3.3</dev.ver.fileupload>
 
         <!--pojo框架-->
         <dev.ver.lombok>1.16.18</dev.ver.lombok>
@@ -90,6 +91,11 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
+                <version>${dev.spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
                 <version>${dev.spring.version}</version>
             </dependency>
             <dependency>
@@ -239,42 +245,31 @@
                 <groupId>org.apache.zookeeper</groupId>
                 <artifactId>zookeeper</artifactId>
                 <version>${dev.ver.zookeeper}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>netty</artifactId>
-                        <groupId>io.netty</groupId>
-                    </exclusion>
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>log4j</groupId>-->
+                        <!--<artifactId>log4j</artifactId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>netty</artifactId>-->
+                        <!--<groupId>io.netty</groupId>-->
+                    <!--</exclusion>-->
 
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                </exclusions>
+                    <!--<exclusion>-->
+                        <!--<groupId>org.slf4j</groupId>-->
+                        <!--<artifactId>slf4j-api</artifactId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>org.slf4j</groupId>-->
+                        <!--<artifactId>slf4j-log4j12</artifactId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
             </dependency>
             <dependency>
-                <groupId>com.101tec</groupId>
+                <groupId>com.github.sgroschupf</groupId>
                 <artifactId>zkclient</artifactId>
                 <version>${dev.ver.zkclient}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-api</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
-
             <!--log日志-->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -309,6 +304,12 @@
                 <artifactId>logback-ext-spring</artifactId>
                 <version>${dev.ver.logback-ext-spring}</version>
             </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${dev.ver.fileupload}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
